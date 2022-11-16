@@ -1,75 +1,114 @@
 'use strict';
-const numberOfFilms = +prompt('How much a films you was watched?', '');
-// const lastFilm = prompt('Last film you watched?', '');
-// const ratingFilm = +prompt('How rating is this film?', '');
-// const lastFilm2 = prompt('Last film you watched?', '');
-// const ratingFilm2 = +prompt('How rating is this film?', '');
+
+let numberOfFilms;
+function start() {
+  numberOfFilms = +prompt('How much a films you was watched?', '');
+
+  while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+    numberOfFilms = +prompt('How much a films you was watched?', '');
+  }
+}
+start();
 const personalMovieDB = {
   count: numberOfFilms,
-  movies: {
-    // [lastFilm]: ratingFilm,
-    // [lastFilm2]: ratingFilm2,
-  },
+  movies: {},
   actors: {},
   genres: [],
   private: false,
 };
-for (let i = 0; i < 2; i++) {
-  const a = prompt('Last film you watched?', ''),
-    b = prompt('How rating is this film?', '');
 
-  if (a != null && b !== null && a != '' && b != '' && a.length < 50) {
-    personalMovieDB[a] = b;
-    console.log('done');
-  } else {
-    console.log('Sorry');
-    i--;
+function rememberMyFilms() {
+  for (let i = 0; i < 2; i++) {
+    const a = prompt('Last film you watched?', '').trim(),
+      b = prompt('How rating is this film?', '');
+
+    if (a !== null && b !== null && a !== '' && b !== '' && a.length < 50) {
+      personalMovieDB[a] = b;
+      console.log('done');
+    } else {
+      console.log('Sorry');
+      i--;
+    }
   }
 }
+rememberMyFilms();
 
-if (numberOfFilms < 10) {
-  alert('too bad...');
-} else if (numberOfFilms > 10 && numberOfFilms < 30) {
-  alert('too bad...');
-} else if (numberOfFilms > 30) {
-  alert('you are crazy!!!!');
-} else {
-  alert('error...');
+function detectPersonalLevel() {
+  if (numberOfFilms < 10) {
+    alert('too bad...');
+  } else if (numberOfFilms > 10 && numberOfFilms < 30) {
+    alert('too bad...');
+  } else if (numberOfFilms > 30) {
+    alert('you are crazy!!!!');
+  } else {
+    alert('error...');
+  }
 }
+detectPersonalLevel();
 
-console.log(personalMovieDB);
+function showMyDB(hidden) {
+  if (!hidden) {
+    console.log(personalMovieDB);
+  }
+}
+showMyDB(personalMovieDB.private);
 
-// let result = '';
-// let len = 7;
-// for (let i = 1; i < len; i++) {
-//   for (let k = 0; k < i; k++) {
-//     result += '*';
-//   }
-//   result += '\n';
-// }
-// // console.log(result);
-// let arr = [];
-// let count = 5;
-// for (let i = 0; i <= 5; i++) {
-//   arr[i] = count++;
-//   console.log(arr);
-// }
+function writeYourGenres() {
+  for (let i = 1; i <= 3; i++) {
+    const c = prompt(`Ваш любимый жанр под номером ${i}`, '');
 
-// const newArray = [1, 4, 3, 2, 5, 23];
-// const copyAr = [];
-// for (let i = 0; i < newArray.length; i++) {
-//   copyAr[i] = newArray[i];
-//   console.log(copyAr);
-// }
+    if (c !== +null || c !== '') {
+      personalMovieDB.genres[i - 1] = c;
+    }
+  }
+}
+writeYourGenres();
+// console.log(personalMovieDB);
 
-// const doubleArray = [5, 10, 'Shopping', 20, 'Homework'];
-// for (let i = 0; i < doubleArray.length; i++) {
-//   if (typeof doubleArray[i] === 'number') {
-//     doubleArray[i] *= 2;
-//   } else {
-//     doubleArray[i] += '- done';
-//   }
-//   console.log(doubleArray);
-// }
-// let rev = doubleArray.reverse();
-// console.log(rev);
+const usdCurr = 28;
+const discount = 0.9;
+function convert(amount, curr) {
+  return amount * curr;
+}
+function promotion(result) {
+  console.log(result * discount);
+}
+// convert(30, usdCurr);
+promotion(convert(500, usdCurr));
+
+function test() {
+  for (let i = 0; i < 5; i++) {
+    console.log(i);
+    if (i === 3) {
+      return;
+    }
+  }
+  console.log('hello');
+}
+test();
+
+function SayHello(name) {
+  console.log(`Hello ${name}!!`);
+}
+SayHello('Alligator');
+
+function returnNeighboringNumbers(num) {
+  return [num - 1, num, num + 1];
+}
+console.log(returnNeighboringNumbers(5));
+
+function getMathResult(a, b) {
+  if (typeof b !== 'number' || b <= 0) {
+    return a;
+  }
+  let result = '';
+  for (let i = 1; i <= b; i++) {
+    if (i === b) {
+      result += `${a * i}`;
+    } else {
+      result += `${a * i}--`;
+    }
+  }
+  console.log(result);
+}
+getMathResult(5, 3);
